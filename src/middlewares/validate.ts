@@ -1,7 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
+
+import jwt from 'jsonwebtoken';
+
 import HttpException from '../errors/CustomError';
 
+const JWT_SECRET = 'validateToken';
+
 const validate = {
+  validateToken: (req: Request, _res: Response, next: NextFunction) => {
+    const { authorization } = req.headers;
+    if (!authorization) {
+      throw new HttpException(401, 'Token not found');
+    }
+    try {
+      jwt.verify(authorization, JWT_SECRET);
+      next();
+    } catch (err) {
+      throw new HttpException(401, 'Invalid token');
+    }
+  },
+
   validateLogin: (req: Request, res: Response, next: NextFunction) => {
     const { username, password } = req.body;
     
@@ -13,6 +31,7 @@ const validate = {
     }
     next();
   },
+
   validateNameProducts: (req: Request, res: Response, next: NextFunction) => {
     const { name } = req.body;
     
@@ -27,6 +46,7 @@ const validate = {
     }
     next();
   },
+
   validateAmountProducts: (req: Request, res: Response, next: NextFunction) => {
     const { amount } = req.body;
     
@@ -41,6 +61,7 @@ const validate = {
     }
     next();
   },
+
   validateUsernameUsers: (req: Request, res: Response, next: NextFunction) => {
     const { username } = req.body;
     
@@ -55,6 +76,7 @@ const validate = {
     }
     next();
   },
+
   validateClasseUsers: (req: Request, res: Response, next: NextFunction) => {
     const { classe } = req.body;
     
@@ -69,6 +91,7 @@ const validate = {
     }
     next();
   },
+
   validateLevelUsers: (req: Request, res: Response, next: NextFunction) => {
     const { level } = req.body;
     console.log(level);
@@ -83,6 +106,7 @@ const validate = {
     }
     next();
   },
+
   validatePasswordUsers: (req: Request, res: Response, next: NextFunction) => {
     const { password } = req.body;
     
@@ -94,6 +118,21 @@ const validate = {
     }
     if (password.length < 8) {
       throw new HttpException(422, '"password" length must be at least 8 characters long');
+    }
+    next();
+  },
+
+  validateProductsIdsOrders: (req: Request, res: Response, next: NextFunction) => {
+    const { productsIds } = req.body;
+    
+    if (!productsIds) {
+      throw new HttpException(400, '"productsIds" is required');
+    }
+    if (typeof productsIds !== 'object') {
+      throw new HttpException(422, '"productsIds" must be an array');
+    }
+    if (productsIds.length === 0) {
+      throw new HttpException(422, '"productsIds" must include only numbers');
     }
     next();
   },

@@ -11,7 +11,6 @@ export default class LoginModel {
 
   public async find(login: ILogin): Promise<ILogin[]> {
     const { username, password } = login;
-    console.log('model', password);
     const result = await this.connection.execute(
       'SELECT id FROM Trybesmith.Users WHERE username = ? AND password = ?', 
       [username, password],
