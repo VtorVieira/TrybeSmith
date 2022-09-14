@@ -1,8 +1,8 @@
-class CustomError extends Error {
-  constructor(message: string) {
+export default class HttpException extends Error {
+  status: number;
+
+  constructor(status: number, message: string) {
     super(message);
-    Object.setPrototypeOf(this, CustomError.prototype);
+    this.status = status;
   }
 }
-
-module.exports = { CustomError };
