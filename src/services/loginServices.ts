@@ -11,9 +11,7 @@ export default class LoginService {
   }
 
   public async find(login: ILogin): Promise<ILogin[]> {
-    console.log('services', login);
     const loginChecked = await this.model.find(login);
-    console.log('loginChecked Services', loginChecked);
     if (loginChecked.length === 0) throw new HttpException(401, 'Username or password invalid');
     return loginChecked;
   }

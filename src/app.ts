@@ -17,8 +17,6 @@ app.use('/products', productsRouters);
 
 app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   const { status, message } = err as HttpException;
-  console.log(status);
-  // res.status(400).json({ message });
   res.status(status).json({ message });
 });
 

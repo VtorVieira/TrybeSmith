@@ -8,6 +8,6 @@ const loginRouter = Router();
 
 const login = new LoginController();
 
-loginRouter.get('/', validate.validateLogin, login.find);
+loginRouter.post('/', validate.validateLogin, login.find);
 
 export default loginRouter;
