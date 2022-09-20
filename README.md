@@ -3,7 +3,7 @@
 No projeto de backend da Trybe, Trybesmith, simulamos uma loja de ferreiro medieval no qual através de #CRUDs foram realizadas operações de consulta e criação de produtos, usuários e pedidos, tudo armazenado em SQL. Como padrão de organização de camadas foi utilizado o MSC (Model, Service e Controller), o que contribuiu para a API ser REST. Os erros foram tratados de maneira customizada e os commits estão no padrão convencional.
 ## Tecnologias usadas
 Back-end:
-> Desenvolvido usando: NodeJS, Express, Docker, Typescript, SQL e JWT.
+> Desenvolvido usando: NodeJS, Express, Docker, Typescript, MySQL e JWT.
 ## Instalando Dependências
 > Backend
 ```bash
